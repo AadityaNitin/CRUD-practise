@@ -1,11 +1,23 @@
 
 import './App.css';
 import Navbar from './Components/Navbar';
+import Home from './Components/Home';
+import All from './Components/All'
+import Add from './Components/Add';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 function App() {
   return (
     <div className="App">
+      <BrowserRouter >
       <Navbar />
-    </div>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/all' element={<All />} />
+        <Route path='/add'element={<Add />} />
+      </Routes>
+      </BrowserRouter>
+     </div>
   );
 }
 
