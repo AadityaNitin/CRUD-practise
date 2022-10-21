@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell, styled, Button } from '@mui/material'
 import React from 'react'
-import { getUsers } from '../Service/api';
+import { getUsers, deleteUser } from '../Service/api';
 import { Link } from 'react-router-dom';
 
 const StyledTable = styled(Table)`
@@ -34,9 +34,14 @@ const All = () => {
 
   const getUsersDetails = async () => {
       let response = await getUsers();
-      console.log(response);
       setUsers(response.data);
   }
+
+  const deleteUserData = async (id) => {
+        await deleteUser(id);
+        getUsersDetails();
+  }
+
   return (
     <div>
       <StyledTable>
@@ -61,7 +66,7 @@ const All = () => {
                 <TableCell>{user.phone}</TableCell>
                 <TableCell>
                   <Button variant='contained' color='secondary' style={{marginRight:10}} component={Link} to={`/edit/${user.id}`}>Edit</Button>
-                  <Button variant='contained' color='error' >Delete</Button>
+                  <Button variant='contained' color='error' onClick={() => deleteUserData(user.id)} >Delete</Button>
                 </TableCell>
               </TBody>
             ))
